@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocp-web-lb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ocp-web-lb
+  template:
+    metadata:
+      labels:
+        app: ocp-web-lb
+    spec:
+      containers:
+      - name: ocp-web-lb
+        image: docker.io/pebcac/ocp-web-lb:0.2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: BACKEND_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              name: ocp-web-lb-config
+              key: backend-service-list

@@ -1,0 +1,1 @@
+oc create configmap ocp-web-lb-config --from-literal=backend-service-list=backend-service-1,backend-service-2,backend-service-3
